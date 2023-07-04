@@ -1,0 +1,37 @@
+# gradle files
+.gradle/
+build/
+
+# local configuration file (sdk path, etc)
+local.properties
+
+# log/os files
+*.log
+
+# android studio generated files and folders
+captures/
+.externalnativebuild/
+.cxx/
+*.apk
+output.json
+
+# intellij
+*.iml
+.idea/
+misc.xml
+deploymenttargetdropdown.xml
+render.experimental.xml
+
+# keystore files
+*.jks
+*.keystore
+
+# google services (e.g. apis or firebase)
+google-services.json
+
+# android profiling
+*.hprof
+footer
+© 2023 github, inc.
+footer navigation
+
