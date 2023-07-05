@@ -47,8 +47,8 @@ dependencies {
 
     implementation 'androidx.room:room-ktx:2.5.2'
     kapt 'androidx.room:room-compiler:2.5.2'
-    implementation 'anroidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'anroidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation 'androidx.preference:preference-ktx:1.2.0'
 
 }
