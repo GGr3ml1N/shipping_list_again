@@ -1,10 +1,12 @@
 package com.ggr3ml1n.shoppinglist.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.ggr3ml1n.shoppinglist.R
 import com.ggr3ml1n.shoppinglist.databinding.ActivityMainBinding
+import com.ggr3ml1n.shoppinglist.fragments.FragmentManager
+import com.ggr3ml1n.shoppinglist.fragments.NoteFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyLog", "New!")
                 }
                 R.id.notes -> {
-                    Log.d("MyLog", "Notes")
+                    FragmentManager.setFragment(this, NoteFragment.newInstance())
                 }
                 R.id.shop_list -> {
                     Log.d("MyLog", "List")
