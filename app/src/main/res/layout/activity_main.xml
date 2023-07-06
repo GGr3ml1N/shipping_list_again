@@ -16,4 +16,15 @@
             app:menu="@menu/bottom_menu"
             android:id="@+id/bNav" />
 
+    <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bNav"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/placeHolder">
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
