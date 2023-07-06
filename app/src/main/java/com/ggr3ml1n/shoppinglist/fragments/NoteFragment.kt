@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.ggr3ml1n.shoppinglist.databinding.FragmentNoteBinding
 
-class NoteFragment : Fragment() {
+class NoteFragment : BaseFragment() {
 
     private var _binding: FragmentNoteBinding? = null
     private val binding get() = _binding!!
+
+    override fun onClickNew() {
+        TODO("Not yet implemented")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
