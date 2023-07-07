@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyLog", "Settings!")
                 }
                 R.id.new_item -> {
-                    Log.d("MyLog", "New!")
+                    FragmentManager.currentFrag?.onClickNew()
                 }
                 R.id.notes -> {
                     FragmentManager.setFragment(this, NoteFragment.newInstance())

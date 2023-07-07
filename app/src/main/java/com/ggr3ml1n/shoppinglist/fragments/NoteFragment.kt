@@ -1,11 +1,13 @@
 package com.ggr3ml1n.shoppinglist.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.ggr3ml1n.shoppinglist.activities.MainApp
+import com.ggr3ml1n.shoppinglist.activities.NewNoteActivity
 import com.ggr3ml1n.shoppinglist.databinding.FragmentNoteBinding
 import com.ggr3ml1n.shoppinglist.vm.MainViewModel
 
@@ -19,7 +21,7 @@ class NoteFragment : BaseFragment() {
     }
 
     override fun onClickNew() {
-        TODO("Not yet implemented")
+        startActivity(Intent(activity, NewNoteActivity::class.java))
     }
 
     override fun onCreateView(
