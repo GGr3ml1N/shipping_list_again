@@ -45,7 +45,7 @@ class NoteFragment : BaseFragment() {
 
     private fun onEditResult(){
         editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if(it.resultCode != Activity.RESULT_OK) {
+            if(it.resultCode == Activity.RESULT_OK) {
                 Log.d("MyLog", "title ${it.data?.getStringExtra(TITLE_KEY)}")
                 Log.d("MyLog", "description ${it.data?.getStringExtra(DESC_KEY)}")
             }
