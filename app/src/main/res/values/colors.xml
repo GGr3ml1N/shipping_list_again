@@ -8,4 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#10B14B</color>
+
+    <!-- color_picker -->
+    <color name="picker_red">#D80D0D</color>
+    <color name="picker_green">#2DBD62</color>
+    <color name="picker_blue">#0DA7D6</color>
+    <color name="picker_black">#000000</color>
+    <color name="picker_yellow">#B9BD1E</color>
+    <color name="picker_orange">#DA6626</color>
 </resources>
