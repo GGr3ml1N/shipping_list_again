@@ -19,6 +19,7 @@ import com.ggr3ml1n.shoppinglist.databinding.ActivityNewNoteBinding
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
 import com.ggr3ml1n.shoppinglist.fragments.NoteFragment
 import com.ggr3ml1n.shoppinglist.utils.HtmlManager
+import com.ggr3ml1n.shoppinglist.utils.MyTouchListener
 import java.util.Locale
 
 class NewNoteActivity : AppCompatActivity() {
@@ -33,6 +34,7 @@ class NewNoteActivity : AppCompatActivity() {
         setContentView(binding.root)
         actionBarSettings()
         getNote()
+        init()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -161,5 +163,9 @@ class NewNoteActivity : AppCompatActivity() {
 
         })
         binding.colorPicker.startAnimation(openAnim)
+    }
+
+    private fun init(){
+        binding.colorPicker.setOnTouchListener(MyTouchListener())
     }
 }
