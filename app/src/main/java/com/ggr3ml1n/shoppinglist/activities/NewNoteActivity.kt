@@ -15,6 +15,7 @@ import com.ggr3ml1n.shoppinglist.R
 import com.ggr3ml1n.shoppinglist.databinding.ActivityNewNoteBinding
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
 import com.ggr3ml1n.shoppinglist.fragments.NoteFragment
+import com.ggr3ml1n.shoppinglist.utils.HtmlManager
 import java.util.Locale
 
 class NewNoteActivity : AppCompatActivity() {
@@ -48,7 +49,7 @@ class NewNoteActivity : AppCompatActivity() {
     private fun fillNote() = with(binding) {
         if (note != null) {
             edTitle.setText(note?.title)
-            edDescription.setText(note?.content)
+            edDescription.setText(HtmlManager.getFromHtml(note?.content!!).trim())
         }
     }
 
@@ -105,7 +106,7 @@ class NewNoteActivity : AppCompatActivity() {
     private fun updateNote(): NoteItem? = with(binding) {
         return note?.copy(
             title = edTitle.text.toString(),
-            content = edDescription.text.toString()
+            content = HtmlManager.toHtml(edDescription.text)
         )
     }
 
@@ -113,7 +114,7 @@ class NewNoteActivity : AppCompatActivity() {
         return NoteItem(
             null,
             binding.edTitle.text.toString(),
-            binding.edDescription.text.toString(),
+            HtmlManager.toHtml(binding.edDescription.text),
             getCurrentTime(),
             ""
         )
