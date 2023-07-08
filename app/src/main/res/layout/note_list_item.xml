@@ -15,7 +15,8 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="3dp">
+            app:cardCornerRadius="3dp"
+            android:id="@+id/itemView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
