@@ -30,7 +30,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:background="@null"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_marginEnd="10dp"
+                    tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck,ImageContrastCheck" />
 
             <LinearLayout
                     android:orientation="vertical"
@@ -43,21 +44,21 @@
                     app:layout_constraintEnd_toStartOf="@+id/im_delete">
 
                 <TextView
-                        android:text="TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="@string/example" />
 
                 <TextView
-                        android:text="TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_description"
                         android:textColor="@color/black"
-                        android:layout_marginTop="2dp" />
+                        android:layout_marginTop="2dp"
+                        android:text="@string/example" />
 
                 <View
                         android:layout_width="match_parent"
@@ -67,12 +68,12 @@
                         android:layout_marginTop="3dp" />
 
                 <TextView
-                        android:text="TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_time"
                         android:textSize="12sp"
-                        android:layout_marginTop="2dp" />
+                        android:layout_marginTop="2dp"
+                        android:text="@string/example" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
