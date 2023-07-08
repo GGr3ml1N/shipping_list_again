@@ -60,7 +60,7 @@ class NoteFragment : BaseFragment() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         it.data?.getSerializableExtra(NEW_NOTE_KEY, NoteItem::class.java)!!
                     } else {
-                        it.data?.getStringExtra(NEW_NOTE_KEY) as NoteItem
+                        it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem
                     }
                 )
             }
