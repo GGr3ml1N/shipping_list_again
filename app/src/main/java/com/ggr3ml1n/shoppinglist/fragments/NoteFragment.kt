@@ -53,9 +53,9 @@ class NoteFragment : BaseFragment() {
         observer()
     }
 
-    private fun onEditResult(){
+    private fun onEditResult() {
         editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if(it.resultCode == Activity.RESULT_OK) {
+            if (it.resultCode == Activity.RESULT_OK) {
                 mainViewModel.insertNote(
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         it.data?.getSerializableExtra(NEW_NOTE_KEY, NoteItem::class.java)!!
@@ -69,11 +69,12 @@ class NoteFragment : BaseFragment() {
 
     private fun initRcView() = with(binding) {
         rcViewNote.layoutManager = LinearLayoutManager(activity)
-        adapter = NoteAdapter()
+        val listener = NoteAdapter.Listener { mainViewModel.deleteNote(it) }
+        adapter = NoteAdapter(listener)
         rcViewNote.adapter = adapter
     }
 
-    private fun observer(){
+    private fun observer() {
         mainViewModel.allNotes.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
@@ -82,7 +83,8 @@ class NoteFragment : BaseFragment() {
     companion object {
 
         const val NEW_NOTE_KEY = "title_key"
-         @JvmStatic
+
+        @JvmStatic
         fun newInstance() = NoteFragment()
 
     }

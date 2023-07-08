@@ -10,19 +10,25 @@ import com.ggr3ml1n.shoppinglist.R
 import com.ggr3ml1n.shoppinglist.databinding.NoteListItemBinding
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
 
-class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator()) {
+class NoteAdapter(private val listener: Listener) :
+    ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder = ItemHolder.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder =
+        ItemHolder.create(parent)
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position))
+        holder.setData(getItem(position), listener)
     }
+
     class ItemHolder(view: View) : ViewHolder(view) {
         private val binding = NoteListItemBinding.bind(view)
-        fun setData(note: NoteItem) = with(binding) {
+        fun setData(note: NoteItem, listener: Listener) = with(binding) {
             tvTitle.text = note.title
             tvDescription.text = note.content
             tvTime.text = note.time
+            imDelete.setOnClickListener{
+                listener.deleteItem(note.id!!)
+            }
         }
 
         companion object {
@@ -38,11 +44,17 @@ class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator
         }
     }
 
-    class ItemComparator: DiffUtil.ItemCallback<NoteItem>() {
+    class ItemComparator : DiffUtil.ItemCallback<NoteItem>() {
 
-        override fun areItemsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean = oldItem.id == newItem.id
+        override fun areItemsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean =
+            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean = oldItem == newItem
+        override fun areContentsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean =
+            oldItem == newItem
 
+    }
+
+    fun interface Listener {
+        fun deleteItem(id: Int)
     }
 }
