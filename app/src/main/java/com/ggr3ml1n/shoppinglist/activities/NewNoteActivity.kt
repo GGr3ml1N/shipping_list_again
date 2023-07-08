@@ -7,6 +7,7 @@ import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +15,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.ggr3ml1n.shoppinglist.R
 import com.ggr3ml1n.shoppinglist.databinding.ActivityNewNoteBinding
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
@@ -35,6 +37,7 @@ class NewNoteActivity : AppCompatActivity() {
         actionBarSettings()
         getNote()
         init()
+        onClickColorPicker()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -99,6 +102,36 @@ class NewNoteActivity : AppCompatActivity() {
         edDescription.text.trim()
         edDescription.setSelection(startPos)
     }
+
+    private fun setColorForSelectedText(colorId: Int) = with(binding) {
+        val startPos = edDescription.selectionStart
+        val endPos = edDescription.selectionEnd
+
+        val styles = edDescription.text.getSpans(startPos, endPos, ForegroundColorSpan::class.java)
+
+        if (styles.isNotEmpty()) edDescription.text.removeSpan(styles[0])
+
+        edDescription.text.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    this@NewNoteActivity,
+                    colorId
+                )
+            ), startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        edDescription.text.trim()
+        edDescription.setSelection(startPos)
+    }
+
+    private fun onClickColorPicker() = with(binding) {
+        ibRed.setOnClickListener { setColorForSelectedText(R.color.picker_red) }
+        ibGreen.setOnClickListener { setColorForSelectedText(R.color.picker_green) }
+        ibBlue.setOnClickListener { setColorForSelectedText(R.color.picker_blue) }
+        ibBlack.setOnClickListener { setColorForSelectedText(R.color.picker_black) }
+        ibYellow.setOnClickListener { setColorForSelectedText(R.color.picker_yellow) }
+        ibOrange.setOnClickListener { setColorForSelectedText(R.color.picker_orange) }
+    }
+
 
     private fun setMainResult() {
         var editState = "new"
@@ -165,7 +198,7 @@ class NewNoteActivity : AppCompatActivity() {
         binding.colorPicker.startAnimation(openAnim)
     }
 
-    private fun init(){
+    private fun init() {
         binding.colorPicker.setOnTouchListener(MyTouchListener())
     }
 }
