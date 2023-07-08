@@ -56,20 +56,35 @@ class NoteFragment : BaseFragment() {
     private fun onEditResult() {
         editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                mainViewModel.insertNote(
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        it.data?.getSerializableExtra(NEW_NOTE_KEY, NoteItem::class.java)!!
-                    } else {
-                        it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem
-                    }
-                )
+                val note =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) it.data?.getSerializableExtra(
+                        NEW_NOTE_KEY,
+                        NoteItem::class.java
+                    )!! else it.data?.getSerializableExtra(
+                        NEW_NOTE_KEY
+                    ) as NoteItem
+                if (it.data?.getStringExtra(EDIT_STATE_KEY) == "new") {
+                    mainViewModel.insertNote(note)
+                } else {
+                    mainViewModel.updateNote(note)
+                }
             }
         }
     }
 
     private fun initRcView() = with(binding) {
         rcViewNote.layoutManager = LinearLayoutManager(activity)
-        val listener = NoteAdapter.Listener { mainViewModel.deleteNote(it) }
+        val listener = object : NoteAdapter.Listener {
+            override fun deleteItem(id: Int) {
+                mainViewModel.deleteNote(id)
+            }
+
+            override fun onClickItem(note: NoteItem) {
+                editLauncher.launch(Intent(activity, NewNoteActivity::class.java).apply {
+                    putExtra(NEW_NOTE_KEY, note)
+                })
+            }
+        }
         adapter = NoteAdapter(listener)
         rcViewNote.adapter = adapter
     }
@@ -83,6 +98,7 @@ class NoteFragment : BaseFragment() {
     companion object {
 
         const val NEW_NOTE_KEY = "title_key"
+        const val EDIT_STATE_KEY = "edit_state_key"
 
         @JvmStatic
         fun newInstance() = NoteFragment()
