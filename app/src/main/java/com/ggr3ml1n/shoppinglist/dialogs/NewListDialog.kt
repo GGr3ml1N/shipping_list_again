@@ -1,8 +1,8 @@
 package com.ggr3ml1n.shoppinglist.dialogs
 
-import androidx.appcompat.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import com.ggr3ml1n.shoppinglist.databinding.NewListDialogBinding
 
 object NewListDialog {
@@ -16,9 +16,8 @@ object NewListDialog {
                 val listName = edNewListName.text.toString()
                 if (listName.isNotEmpty()) {
                     listener.onClick(listName)
-                } else {
-                    dialog?.dismiss()
                 }
+                dialog?.dismiss()
             }
         }
         dialog = builder.create()
