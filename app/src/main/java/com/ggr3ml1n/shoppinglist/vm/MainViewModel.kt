@@ -14,6 +14,7 @@ import java.lang.IllegalArgumentException
 class MainViewModel(database: MainDataBase) : ViewModel() {
     val dao = database.getDao()
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
+    val allShopListNames: LiveData<List<ShoppingListName>> = dao.getAllShoppingListNames().asLiveData()
 
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)

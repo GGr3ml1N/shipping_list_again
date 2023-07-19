@@ -13,6 +13,9 @@ interface Dao {
     @Query("SELECT * FROM note_list")
     fun getAllNotes(): Flow<List<NoteItem>>
 
+    @Query("SELECT * FROM shopping_list_names")
+    fun getAllShoppingListNames(): Flow<List<ShoppingListName>>
+
     @Query ("DELETE FROM note_list WHERE id IS :id")
     suspend fun deleteNote(id: Int)
 
