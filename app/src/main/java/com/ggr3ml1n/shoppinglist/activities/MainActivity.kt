@@ -8,18 +8,17 @@ import com.ggr3ml1n.shoppinglist.databinding.ActivityMainBinding
 import com.ggr3ml1n.shoppinglist.dialogs.NewListDialog
 import com.ggr3ml1n.shoppinglist.fragments.FragmentManager
 import com.ggr3ml1n.shoppinglist.fragments.NoteFragment
+import com.ggr3ml1n.shoppinglist.fragments.ShopListNames
 
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-
-    private val listener = NewListDialog.Listener { Log.d("MyLog", "Name: $it") }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        FragmentManager.setFragment(this, ShopListNames.newInstance())
         setBottomNavListener()
     }
 
@@ -30,14 +29,13 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyLog", "Settings!")
                 }
                 R.id.new_item -> {
-                    //FragmentManager.currentFrag?.onClickNew()
-                    NewListDialog.showDialog(this, listener)
+                    FragmentManager.currentFrag?.onClickNew()
                 }
                 R.id.notes -> {
                     FragmentManager.setFragment(this, NoteFragment.newInstance())
                 }
                 R.id.shop_list -> {
-                    Log.d("MyLog", "List")
+                    FragmentManager.setFragment(this, ShopListNames.newInstance())
                 }
             }
             true
