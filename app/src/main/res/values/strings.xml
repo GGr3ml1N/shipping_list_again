@@ -20,6 +20,13 @@
     <string name="new_list_name">New list name</string>
     <string name="list_name">List name</string>
     <string name="create">Create</string>
+    
+    <!-- delete_dialog -->
+    <string name="delete_item">Do you want delete this item?</string>
+    <string name="delete_alert">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
