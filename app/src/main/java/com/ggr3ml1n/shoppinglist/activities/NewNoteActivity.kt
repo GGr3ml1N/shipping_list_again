@@ -2,8 +2,6 @@ package com.ggr3ml1n.shoppinglist.activities
 
 import android.content.Intent
 import android.graphics.Typeface
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
@@ -22,7 +20,7 @@ import com.ggr3ml1n.shoppinglist.entities.NoteItem
 import com.ggr3ml1n.shoppinglist.fragments.NoteFragment
 import com.ggr3ml1n.shoppinglist.utils.HtmlManager
 import com.ggr3ml1n.shoppinglist.utils.MyTouchListener
-import java.util.Locale
+import com.ggr3ml1n.shoppinglist.utils.TimeManager
 
 class NewNoteActivity : AppCompatActivity() {
 
@@ -161,15 +159,11 @@ class NewNoteActivity : AppCompatActivity() {
             null,
             binding.edTitle.text.toString(),
             HtmlManager.toHtml(binding.edDescription.text),
-            getCurrentTime(),
+            TimeManager.getCurrentTime(),
             ""
         )
     }
 
-    private fun getCurrentTime(): String {
-        val formater = SimpleDateFormat("hh:mm:ss - yyyy/MM/dd", Locale.getDefault())
-        return formater.format(Calendar.getInstance().time)
-    }
 
     private fun actionBarSettings() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
