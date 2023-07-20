@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ggr3ml1n.shoppinglist.activities.MainApp
 import com.ggr3ml1n.shoppinglist.adapters.ShopListNameAdapter
 import com.ggr3ml1n.shoppinglist.databinding.FragmentShopListNamesBinding
+import com.ggr3ml1n.shoppinglist.dialogs.DeleteDialog
 import com.ggr3ml1n.shoppinglist.dialogs.NewListDialog
 import com.ggr3ml1n.shoppinglist.entities.ShoppingListName
 import com.ggr3ml1n.shoppinglist.utils.TimeManager
@@ -52,7 +53,17 @@ class ShopListNamesFragment : BaseFragment() {
 
     private fun initRcView() = with(binding) {
         rcShopListName.layoutManager = LinearLayoutManager(activity)
-        adapter = ShopListNameAdapter()
+        adapter = ShopListNameAdapter(object : ShopListNameAdapter.Listener {
+            override fun deleteItem(id: Int) {
+                DeleteDialog.showDialog(context as AppCompatActivity) {
+                    mainViewModel.deleteShopListName(id)
+                }
+            }
+
+            override fun onClick() {
+
+            }
+        })
         rcShopListName.adapter = adapter
     }
 
