@@ -42,7 +42,8 @@ class ShopListNamesFragment : BaseFragment() {
 
     override fun onClickNew() {
         NewListDialog.showDialog(
-            activity as AppCompatActivity
+            activity as AppCompatActivity,
+            ""
         ) {
             val shoppingListName = ShoppingListName(
                 null, it, TimeManager.getCurrentTime(), 0, 0, ""
@@ -60,8 +61,14 @@ class ShopListNamesFragment : BaseFragment() {
                 }
             }
 
-            override fun onClick() {
+            override fun onClickItem(shopListName: ShoppingListName) {
+                TODO("Not yet implemented")
+            }
 
+            override fun editItem(shopListName: ShoppingListName) {
+                NewListDialog.showDialog(context as AppCompatActivity, shopListName.name) {
+                    mainViewModel.updateShopListName(shopListName.copy(name = it))
+                }
             }
         })
         rcShopListName.adapter = adapter
