@@ -95,6 +95,11 @@ class NoteFragment : BaseFragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     companion object {
 
         const val NEW_NOTE_KEY = "title_key"

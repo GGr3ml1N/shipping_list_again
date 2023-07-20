@@ -80,6 +80,11 @@ class ShopListNamesFragment : BaseFragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     companion object {
         @JvmStatic
         fun newInstance() = ShopListNamesFragment()
