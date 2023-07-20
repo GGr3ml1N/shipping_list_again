@@ -27,6 +27,9 @@ class ShopListNameAdapter(private val listener: Listener): ListAdapter<ShoppingL
             imDelete.setOnClickListener {
                 listener.deleteItem(shopListNameItem.id!!)
             }
+            imEdit.setOnClickListener {
+                listener.editItem(shopListNameItem)
+            }
         }
 
         companion object {
@@ -43,17 +46,17 @@ class ShopListNameAdapter(private val listener: Listener): ListAdapter<ShoppingL
     }
 
     class ItemComparator : DiffUtil.ItemCallback<ShoppingListName>() {
-        override fun areItemsTheSame(
-            oldItem: ShoppingListName,
-            newItem: ShoppingListName
-        ): Boolean = oldItem.id == newItem.id
+        override fun areItemsTheSame(oldItem: ShoppingListName, newItem: ShoppingListName): Boolean =
+            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: ShoppingListName, newItem: ShoppingListName): Boolean = oldItem == newItem
+        override fun areContentsTheSame(oldItem: ShoppingListName, newItem: ShoppingListName): Boolean =
+            oldItem == newItem
 
     }
 
     interface Listener {
         fun deleteItem(id: Int)
-        fun onClick()
+        fun onClickItem(shopListName: ShoppingListName)
+        fun editItem(shopListName: ShoppingListName)
     }
 }
