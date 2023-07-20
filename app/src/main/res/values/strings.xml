@@ -18,8 +18,10 @@
 
     <!-- new_list_dialog -->
     <string name="new_list_name">New list name</string>
+    <string name="update_list_name">Update list name</string>
     <string name="list_name">List name</string>
     <string name="create">Create</string>
+    <string name="update">Update</string>
     
     <!-- delete_dialog -->
     <string name="delete_item">Do you want delete this item?</string>
