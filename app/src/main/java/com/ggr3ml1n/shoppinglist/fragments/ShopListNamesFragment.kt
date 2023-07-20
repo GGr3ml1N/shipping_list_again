@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ggr3ml1n.shoppinglist.activities.MainApp
+import com.ggr3ml1n.shoppinglist.adapters.ShopListNameAdapter
 import com.ggr3ml1n.shoppinglist.databinding.FragmentShopListNamesBinding
 import com.ggr3ml1n.shoppinglist.dialogs.NewListDialog
 import com.ggr3ml1n.shoppinglist.entities.ShoppingListName
@@ -17,6 +19,7 @@ import com.ggr3ml1n.shoppinglist.vm.MainViewModel
 class ShopListNamesFragment : BaseFragment() {
     private var _binding: FragmentShopListNamesBinding? = null
     private val binding get() = _binding!!
+    private lateinit var adapter: ShopListNameAdapter
 
     private val mainViewModel: MainViewModel by activityViewModels {
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
@@ -30,6 +33,12 @@ class ShopListNamesFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRcView()
+        observer()
+    }
+
     override fun onClickNew() {
         NewListDialog.showDialog(
             activity as AppCompatActivity
@@ -38,6 +47,18 @@ class ShopListNamesFragment : BaseFragment() {
                 null, it, TimeManager.getCurrentTime(), 0, 0, ""
             )
             mainViewModel.insertShoppingListName(shoppingListName)
+        }
+    }
+
+    private fun initRcView() = with(binding) {
+        rcShopListName.layoutManager = LinearLayoutManager(activity)
+        adapter = ShopListNameAdapter()
+        rcShopListName.adapter = adapter
+    }
+
+    private fun observer() {
+        mainViewModel.allShopListNames.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
     }
 
