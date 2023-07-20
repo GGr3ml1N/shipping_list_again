@@ -32,14 +32,16 @@
                     android:id="@+id/tv_list_name"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    tools:ignore="HardcodedText" />
 
             <TextView
                     android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_time"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText" />
 
             <ProgressBar
                     style="?android:attr/progressBarStyleHorizontal"
@@ -60,7 +62,8 @@
             app:layout_constraintTop_toTopOf="@+id/cardView"
             android:elevation="10dp"
             android:backgroundTint="#B32F2F"
-            android:alpha="0.8" />
+            android:alpha="0.8"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <ImageButton
             android:layout_width="wrap_content"
@@ -72,7 +75,8 @@
             app:layout_constraintTop_toTopOf="@+id/cardView"
             android:elevation="10dp"
             android:backgroundTint="#5AD856"
-            android:alpha="0.8" />
+            android:alpha="0.8"
+            tools:ignore="ContentDescription,ImageContrastCheck,ImageContrastCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -99,7 +103,8 @@
                     android:id="@+id/tv_counter"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    tools:ignore="HardcodedText,TextContrastCheck" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
