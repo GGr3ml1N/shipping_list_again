@@ -7,20 +7,20 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.ggr3ml1n.shoppinglist.db.MainDataBase
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
-import com.ggr3ml1n.shoppinglist.entities.ShoppingListName
+import com.ggr3ml1n.shoppinglist.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class MainViewModel(database: MainDataBase) : ViewModel() {
     val dao = database.getDao()
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
-    val allShopListNames: LiveData<List<ShoppingListName>> = dao.getAllShoppingListNames().asLiveData()
+    val allShopListNames: LiveData<List<ShopListNameItem>> = dao.getAllShopListNames().asLiveData()
 
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
     }
 
-    fun insertShoppingListName(name: ShoppingListName) = viewModelScope.launch {
+    fun insertShoppingListName(name: ShopListNameItem) = viewModelScope.launch {
         dao.insertShoppingListName(name)
     }
 
@@ -28,7 +28,7 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
         dao.updateNote(note)
     }
 
-    fun updateShopListName(name: ShoppingListName) = viewModelScope.launch {
+    fun updateShopListName(name: ShopListNameItem) = viewModelScope.launch {
         dao.updateShopListName(name)
     }
 

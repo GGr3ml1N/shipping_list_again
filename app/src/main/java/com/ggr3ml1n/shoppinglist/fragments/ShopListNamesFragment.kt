@@ -12,7 +12,7 @@ import com.ggr3ml1n.shoppinglist.adapters.ShopListNameAdapter
 import com.ggr3ml1n.shoppinglist.databinding.FragmentShopListNamesBinding
 import com.ggr3ml1n.shoppinglist.dialogs.DeleteDialog
 import com.ggr3ml1n.shoppinglist.dialogs.NewListDialog
-import com.ggr3ml1n.shoppinglist.entities.ShoppingListName
+import com.ggr3ml1n.shoppinglist.entities.ShopListNameItem
 import com.ggr3ml1n.shoppinglist.utils.TimeManager
 import com.ggr3ml1n.shoppinglist.vm.MainViewModel
 
@@ -45,10 +45,10 @@ class ShopListNamesFragment : BaseFragment() {
             activity as AppCompatActivity,
             ""
         ) {
-            val shoppingListName = ShoppingListName(
+            val shopListNameItem = ShopListNameItem(
                 null, it, TimeManager.getCurrentTime(), 0, 0, ""
             )
-            mainViewModel.insertShoppingListName(shoppingListName)
+            mainViewModel.insertShoppingListName(shopListNameItem)
         }
     }
 
@@ -61,11 +61,11 @@ class ShopListNamesFragment : BaseFragment() {
                 }
             }
 
-            override fun onClickItem(shopListName: ShoppingListName) {
+            override fun onClickItem(shopListName: ShopListNameItem) {
                 TODO("Not yet implemented")
             }
 
-            override fun editItem(shopListName: ShoppingListName) {
+            override fun editItem(shopListName: ShopListNameItem) {
                 NewListDialog.showDialog(context as AppCompatActivity, shopListName.name) {
                     mainViewModel.updateShopListName(shopListName.copy(name = it))
                 }
