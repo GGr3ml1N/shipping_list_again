@@ -2,7 +2,6 @@ package com.ggr3ml1n.shoppinglist.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import com.ggr3ml1n.shoppinglist.activities.NewNoteActivity
 import com.ggr3ml1n.shoppinglist.adapters.NoteAdapter
 import com.ggr3ml1n.shoppinglist.databinding.FragmentNoteBinding
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
+import com.ggr3ml1n.shoppinglist.utils.Extension
 import com.ggr3ml1n.shoppinglist.vm.MainViewModel
 
 class NoteFragment : BaseFragment() {
@@ -56,17 +56,13 @@ class NoteFragment : BaseFragment() {
     private fun onEditResult() {
         editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                val note =
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) it.data?.getSerializableExtra(
-                        NEW_NOTE_KEY,
-                        NoteItem::class.java
-                    )!! else it.data?.getSerializableExtra(
-                        NEW_NOTE_KEY
-                    ) as NoteItem
+                val note = it.data?.let { intent ->
+                    Extension.getSerializable(intent, NEW_NOTE_KEY, NoteItem::class.java)
+                }
                 if (it.data?.getStringExtra(EDIT_STATE_KEY) == "new") {
-                    mainViewModel.insertNote(note)
+                    mainViewModel.insertNote(note!!)
                 } else {
-                    mainViewModel.updateNote(note)
+                    mainViewModel.updateNote(note!!)
                 }
             }
         }

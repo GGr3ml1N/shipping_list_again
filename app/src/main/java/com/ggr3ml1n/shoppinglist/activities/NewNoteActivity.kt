@@ -2,7 +2,6 @@ package com.ggr3ml1n.shoppinglist.activities
 
 import android.content.Intent
 import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
@@ -18,6 +17,7 @@ import com.ggr3ml1n.shoppinglist.R
 import com.ggr3ml1n.shoppinglist.databinding.ActivityNewNoteBinding
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
 import com.ggr3ml1n.shoppinglist.fragments.NoteFragment
+import com.ggr3ml1n.shoppinglist.utils.Extension
 import com.ggr3ml1n.shoppinglist.utils.HtmlManager
 import com.ggr3ml1n.shoppinglist.utils.MyTouchListener
 import com.ggr3ml1n.shoppinglist.utils.TimeManager
@@ -44,11 +44,7 @@ class NewNoteActivity : AppCompatActivity() {
     }
 
     private fun getNote() {
-        note = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(NoteFragment.NEW_NOTE_KEY, NoteItem::class.java)
-        } else {
-            intent.getSerializableExtra(NoteFragment.NEW_NOTE_KEY) as NoteItem
-        }
+        note = Extension.getSerializable(intent, NoteFragment.NEW_NOTE_KEY, NoteItem::class.java)
         fillNote()
     }
 
