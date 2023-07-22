@@ -1,5 +1,6 @@
 package com.ggr3ml1n.shoppinglist.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ggr3ml1n.shoppinglist.activities.MainApp
+import com.ggr3ml1n.shoppinglist.activities.ShopListActivity
 import com.ggr3ml1n.shoppinglist.adapters.ShopListNameAdapter
 import com.ggr3ml1n.shoppinglist.databinding.FragmentShopListNamesBinding
 import com.ggr3ml1n.shoppinglist.dialogs.DeleteDialog
@@ -62,7 +64,10 @@ class ShopListNamesFragment : BaseFragment() {
             }
 
             override fun onClickItem(shopListName: ShopListNameItem) {
-                TODO("Not yet implemented")
+                val intent = Intent(activity, ShopListActivity::class.java).apply {
+                    putExtra(ShopListActivity.SHOP_LIST_NAME, shopListName)
+                }
+                startActivity(intent)
             }
 
             override fun editItem(shopListName: ShopListNameItem) {
