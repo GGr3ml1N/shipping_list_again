@@ -30,6 +30,9 @@ class ShopListNameAdapter(private val listener: Listener): ListAdapter<ShopListN
             imEdit.setOnClickListener {
                 listener.editItem(shopListNameItem)
             }
+            bList.setOnClickListener{
+                listener.onClickItem(shopListNameItem)
+            }
         }
 
         companion object {
