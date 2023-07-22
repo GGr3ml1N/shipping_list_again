@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#AA2929">
+        android:id="@+id/bList">
 
     <androidx.cardview.widget.CardView
             android:layout_width="0dp"
