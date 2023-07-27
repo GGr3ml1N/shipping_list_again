@@ -50,7 +50,7 @@ class ShopListNamesFragment : BaseFragment() {
             val shopListNameItem = ShopListNameItem(
                 null, it, TimeManager.getCurrentTime(), 0, 0, ""
             )
-            mainViewModel.insertShoppingListName(shopListNameItem)
+            mainViewModel.insertShopListName(shopListNameItem)
         }
     }
 
