@@ -22,5 +22,5 @@ data class ShoppingListItem(
     val listId: Int,
 
     @ColumnInfo(name = "item_type")
-    val itemType: String = "item",
+    val itemType: Int = 0,
 )
