@@ -7,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.ggr3ml1n.shoppinglist.db.MainDataBase
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
+import com.ggr3ml1n.shoppinglist.entities.ShopListItem
 import com.ggr3ml1n.shoppinglist.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
@@ -20,8 +21,12 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
         dao.insertNote(note)
     }
 
-    fun insertShoppingListName(name: ShopListNameItem) = viewModelScope.launch {
-        dao.insertShoppingListName(name)
+    fun insertShopListName(name: ShopListNameItem) = viewModelScope.launch {
+        dao.insertShopListName(name)
+    }
+
+    fun insertShopListItem(shopListItem: ShopListItem) = viewModelScope.launch {
+        dao.insertItem(shopListItem)
     }
 
     fun updateNote(note: NoteItem) = viewModelScope.launch {
