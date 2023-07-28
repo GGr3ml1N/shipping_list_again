@@ -16,7 +16,7 @@ data class ShopListItem(
     val itemInfo: String?,
 
     @ColumnInfo(name = "item_checked")
-    val itemChecked: Int = 0,
+    val itemChecked: Boolean = false,
 
     @ColumnInfo(name = "list_id")
     val listId: Int,

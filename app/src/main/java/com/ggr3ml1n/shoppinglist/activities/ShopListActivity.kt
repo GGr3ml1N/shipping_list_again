@@ -83,7 +83,7 @@ class ShopListActivity : AppCompatActivity() {
             null,
             edText?.text.toString(),
             null,
-            0,
+            false,
             shopListName?.id!!,
             0,
         )
