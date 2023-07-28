@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ggr3ml1n.shoppinglist.R
 import com.ggr3ml1n.shoppinglist.databinding.ShopListItemBinding
 import com.ggr3ml1n.shoppinglist.entities.ShopListItem
-import com.ggr3ml1n.shoppinglist.entities.ShopListNameItem
 
 class ShopListItemAdapter(private val listener: Listener) :
     ListAdapter<ShopListItem, ShopListItemAdapter.ItemHolder>(ItemComparator()) {
@@ -42,8 +41,10 @@ class ShopListItemAdapter(private val listener: Listener) :
                 tvName.text = shopListItem.name
                 tvInfo.text = shopListItem.itemInfo
                 tvInfo.visibility = infoVisibility(shopListItem)
+                chBox.isChecked = shopListItem.itemChecked
+                setPaintFlagAndColor(binding)
                 chBox.setOnClickListener {
-                    setPaintFlagAndColor(binding)
+                    listener.onClickItem(shopListItem.copy(itemChecked = chBox.isChecked))
                 }
             }
         }
@@ -106,9 +107,7 @@ class ShopListItemAdapter(private val listener: Listener) :
 
     }
 
-    interface Listener {
-        fun deleteItem(id: Int)
-        fun onClickItem(shopListName: ShopListNameItem)
-        fun editItem(shopListName: ShopListNameItem)
+    fun interface Listener {
+        fun onClickItem(shopListName: ShopListItem)
     }
 }

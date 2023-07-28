@@ -99,20 +99,9 @@ class ShopListActivity : AppCompatActivity() {
     }
 
     private fun initRcView() = with(binding) {
-        adapter = ShopListItemAdapter(object: ShopListItemAdapter.Listener {
-            override fun deleteItem(id: Int) {
-
-            }
-
-            override fun onClickItem(shopListName: ShopListNameItem) {
-
-            }
-
-            override fun editItem(shopListName: ShopListNameItem) {
-
-            }
-
-        })
+        adapter = ShopListItemAdapter {
+            mainViewModel.updateShopListItem(it)
+        }
         rcView.layoutManager = LinearLayoutManager(this@ShopListActivity)
         rcView.adapter = adapter
     }
