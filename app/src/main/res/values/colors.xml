@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#10B14B</color>
     <color name="green_dark">#0C8539</color>
+    <color name="grey">#1D1D1D</color>
+    <color name="grey_light">#767676</color>
 
     <!-- color_picker -->
     <color name="picker_red">#D80D0D</color>
@@ -17,5 +19,5 @@
     <color name="picker_black">#000000</color>
     <color name="picker_yellow">#B9BD1E</color>
     <color name="picker_orange">#DA6626</color>
-    <color name="grey">#1D1D1D</color>
+
 </resources>
