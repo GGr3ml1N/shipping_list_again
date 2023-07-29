@@ -39,6 +39,12 @@
     <!-- activity_shop_list -->
     <string name="empty">Empty</string>
 
+    <!-- edit_list_item_dialog -->
+    <string name="update_list_item">Update List Item</string>
+    <string name="name">Name</string>
+    <string name="item_info">Item Info</string>
+    <string name="update_item">Update</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
