@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ggr3ml1n.shoppinglist.R
 import com.ggr3ml1n.shoppinglist.adapters.ShopListItemAdapter
 import com.ggr3ml1n.shoppinglist.databinding.ActivityShopListBinding
+import com.ggr3ml1n.shoppinglist.dialogs.EditListItemDialog
 import com.ggr3ml1n.shoppinglist.entities.ShopListItem
 import com.ggr3ml1n.shoppinglist.entities.ShopListNameItem
 import com.ggr3ml1n.shoppinglist.utils.Extension
@@ -99,8 +100,14 @@ class ShopListActivity : AppCompatActivity() {
     }
 
     private fun initRcView() = with(binding) {
-        adapter = ShopListItemAdapter {
-            mainViewModel.updateShopListItem(it)
+        adapter = ShopListItemAdapter { shopListName, state ->
+            when(state) {
+                ShopListItemAdapter.CHECKED_BOX -> mainViewModel.updateShopListItem(shopListName)
+                ShopListItemAdapter.EDIT -> EditListItemDialog.showDialog(this@ShopListActivity, shopListName) {
+                    mainViewModel.updateShopListItem(it)
+                }
+            }
+
         }
         rcView.layoutManager = LinearLayoutManager(this@ShopListActivity)
         rcView.adapter = adapter
