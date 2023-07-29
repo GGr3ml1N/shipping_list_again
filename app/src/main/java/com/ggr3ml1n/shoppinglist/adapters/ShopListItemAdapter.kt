@@ -44,7 +44,10 @@ class ShopListItemAdapter(private val listener: Listener) :
                 chBox.isChecked = shopListItem.itemChecked
                 setPaintFlagAndColor(binding)
                 chBox.setOnClickListener {
-                    listener.onClickItem(shopListItem.copy(itemChecked = chBox.isChecked))
+                    listener.onClickItem(shopListItem.copy(itemChecked = chBox.isChecked), CHECKED_BOX)
+                }
+                ibEdit.setOnClickListener {
+                    listener.onClickItem(shopListItem, EDIT)
                 }
             }
         }
@@ -108,6 +111,11 @@ class ShopListItemAdapter(private val listener: Listener) :
     }
 
     fun interface Listener {
-        fun onClickItem(shopListName: ShopListItem)
+        fun onClickItem(shopListName: ShopListItem, state: Int)
+    }
+
+    companion object {
+        const val EDIT = 0
+        const val CHECKED_BOX = 1
     }
 }
