@@ -47,8 +47,9 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
         dao.deleteNote(id)
     }
 
-    fun deleteShopListName(id: Int) = viewModelScope.launch {
+    fun deleteShopList(id: Int) = viewModelScope.launch {
         dao.deleteShopListName(id)
+        dao.deleteShopListItemsByListId(id)
     }
 
     class MainViewModelFactory(val database: MainDataBase) : ViewModelProvider.Factory {
