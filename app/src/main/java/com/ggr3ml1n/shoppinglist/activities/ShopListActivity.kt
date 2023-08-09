@@ -1,5 +1,6 @@
 package com.ggr3ml1n.shoppinglist.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +16,7 @@ import com.ggr3ml1n.shoppinglist.dialogs.EditListItemDialog
 import com.ggr3ml1n.shoppinglist.entities.ShopListItem
 import com.ggr3ml1n.shoppinglist.entities.ShopListNameItem
 import com.ggr3ml1n.shoppinglist.utils.Extension
+import com.ggr3ml1n.shoppinglist.utils.ShareHelper
 import com.ggr3ml1n.shoppinglist.vm.MainViewModel
 
 class ShopListActivity : AppCompatActivity() {
@@ -30,7 +32,7 @@ class ShopListActivity : AppCompatActivity() {
         MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
     }
 
-    private var shopListName: ShopListNameItem? = null
+    private var shopListNameItem: ShopListNameItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,7 @@ class ShopListActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        shopListName =
+        shopListNameItem =
             Extension.getSerializable(intent, SHOP_LIST_NAME, ShopListNameItem::class.java)
     }
 
@@ -60,11 +62,14 @@ class ShopListActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.save_item -> addNewShopItem()
             R.id.delete_list -> {
-                mainViewModel.deleteShopList(shopListName?.id!!, true)
+                mainViewModel.deleteShopList(shopListNameItem?.id!!, true)
                 finish()
             }
             R.id.clear_list -> {
-                mainViewModel.deleteShopList(shopListName?.id!!, false)
+                mainViewModel.deleteShopList(shopListNameItem?.id!!, false)
+            }
+            R.id.share_list -> {
+                startActivity(Intent.createChooser(ShareHelper.shareShopList(adapter?.currentList!!, shopListNameItem?.name!!), "Share by"))
             }
         }
         return super.onOptionsItemSelected(item)
@@ -92,7 +97,7 @@ class ShopListActivity : AppCompatActivity() {
             edText?.text.toString(),
             null,
             false,
-            shopListName?.id!!,
+            shopListNameItem?.id!!,
             0,
         )
         edText?.setText("")
@@ -100,7 +105,7 @@ class ShopListActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-        mainViewModel.getAllItemsFromList(shopListName?.id!!).observe(this) {
+        mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).observe(this) {
             adapter?.submitList(it)
             binding.tvEmpty.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
         }
