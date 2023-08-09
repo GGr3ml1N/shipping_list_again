@@ -59,7 +59,7 @@ class ShopListNamesFragment : BaseFragment() {
         adapter = ShopListNameAdapter(object : ShopListNameAdapter.Listener {
             override fun deleteItem(id: Int) {
                 DeleteDialog.showDialog(context as AppCompatActivity) {
-                    mainViewModel.deleteShopList(id)
+                    mainViewModel.deleteShopList(id, true)
                 }
             }
 
@@ -82,6 +82,7 @@ class ShopListNamesFragment : BaseFragment() {
     private fun observer() {
         mainViewModel.allShopListNames.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            binding.tvEmpty.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
         }
     }
 
