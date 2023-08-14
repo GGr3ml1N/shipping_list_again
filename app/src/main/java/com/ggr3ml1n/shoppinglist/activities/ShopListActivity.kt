@@ -2,6 +2,9 @@ package com.ggr3ml1n.shoppinglist.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,8 +28,9 @@ class ShopListActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private lateinit var saveItem: MenuItem
-    private var edText: EditText? = null
+    private var edTitle: EditText? = null
     private var adapter: ShopListItemAdapter? = null
+    private var textWatcher: TextWatcher? = null
 
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
@@ -52,10 +56,25 @@ class ShopListActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.shop_list_menu, menu)
         saveItem = menu?.findItem(R.id.save_item)!!
         val newItem = menu.findItem(R.id.new_item)
-        edText = newItem.actionView?.findViewById(R.id.edNewShopItem) as EditText
+        edTitle = newItem.actionView?.findViewById(R.id.edNewShopItem) as EditText
         newItem.setOnActionExpandListener(expandActionView())
         saveItem.isVisible = false
+        textWatcher = textWatcher()
         return true
+    }
+
+    private fun textWatcher(): TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            Log.d("MyLog", "On text changed: $s")
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -79,11 +98,13 @@ class ShopListActivity : AppCompatActivity() {
         return object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem): Boolean {
                 saveItem.isVisible = true
+                edTitle?.addTextChangedListener(textWatcher)
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
                 saveItem.isVisible = false
+                edTitle?.removeTextChangedListener(textWatcher)
                 invalidateOptionsMenu()
                 return true
             }
@@ -91,16 +112,16 @@ class ShopListActivity : AppCompatActivity() {
     }
 
     private fun addNewShopItem() {
-        if (edText?.text.toString().isEmpty()) return
+        if (edTitle?.text.toString().isEmpty()) return
         val item = ShopListItem(
             null,
-            edText?.text.toString(),
+            edTitle?.text.toString(),
             null,
             false,
             shopListNameItem?.id!!,
             0,
         )
-        edText?.setText("")
+        edTitle?.setText("")
         mainViewModel.insertShopListItem(item)
     }
 
