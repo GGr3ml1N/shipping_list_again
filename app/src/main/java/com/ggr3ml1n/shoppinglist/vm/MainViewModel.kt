@@ -1,6 +1,7 @@
 package com.ggr3ml1n.shoppinglist.vm
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -14,11 +15,16 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(database: MainDataBase) : ViewModel() {
     val dao = database.getDao()
+    val libraryItems = MutableLiveData<List<LibraryItem>>()
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
     val allShopListNames: LiveData<List<ShopListNameItem>> = dao.getAllShopListNames().asLiveData()
 
     fun getAllItemsFromList(listId: Int): LiveData<List<ShopListItem>> =
         dao.getAllShopListItems(listId).asLiveData()
+
+    fun getAllLibraryItems(name: String) = viewModelScope.launch {
+        libraryItems.postValue(dao.getAllLibraryItems(name))
+    }
 
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
@@ -30,6 +36,12 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
 
     fun insertShopListItem(shopListItem: ShopListItem) = viewModelScope.launch {
         dao.insertItem(shopListItem)
+        if (!isLibraryItemWExists(shopListItem.name)) dao.insertLibraryItem(
+            LibraryItem(
+                null,
+                shopListItem.name
+            )
+        )
     }
 
     fun updateNote(note: NoteItem) = viewModelScope.launch {
@@ -42,12 +54,6 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
 
     fun updateShopListItem(shopListItem: ShopListItem) = viewModelScope.launch {
         dao.updateItem(shopListItem)
-        if (isLibraryItemWExists(shopListItem.name)) dao.insertLibraryItem(
-            LibraryItem(
-                null,
-                shopListItem.name
-            )
-        )
     }
 
     fun deleteNote(id: Int) = viewModelScope.launch {
