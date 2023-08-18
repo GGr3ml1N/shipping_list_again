@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.ggr3ml1n.shoppinglist.db.MainDataBase
+import com.ggr3ml1n.shoppinglist.entities.LibraryItem
 import com.ggr3ml1n.shoppinglist.entities.NoteItem
 import com.ggr3ml1n.shoppinglist.entities.ShopListItem
 import com.ggr3ml1n.shoppinglist.entities.ShopListNameItem
@@ -41,6 +42,12 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
 
     fun updateShopListItem(shopListItem: ShopListItem) = viewModelScope.launch {
         dao.updateItem(shopListItem)
+        if (isLibraryItemWExists(shopListItem.name)) dao.insertLibraryItem(
+            LibraryItem(
+                null,
+                shopListItem.name
+            )
+        )
     }
 
     fun deleteNote(id: Int) = viewModelScope.launch {
@@ -51,6 +58,9 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
         if (deleteList) dao.deleteShopListName(id)
         dao.deleteShopListItemsByListId(id)
     }
+
+    private suspend fun isLibraryItemWExists(name: String): Boolean =
+        dao.getAllLibraryItems(name).isNotEmpty()
 
     class MainViewModelFactory(val database: MainDataBase) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
