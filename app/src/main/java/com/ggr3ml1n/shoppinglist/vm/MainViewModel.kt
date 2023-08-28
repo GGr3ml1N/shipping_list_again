@@ -56,6 +56,10 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
         dao.updateItem(shopListItem)
     }
 
+    fun updateLibraryItem(item: LibraryItem) = viewModelScope.launch {
+        dao.updateLibraryItem(item)
+    }
+
     fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
     }
@@ -63,6 +67,10 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
     fun deleteShopList(id: Int, deleteList: Boolean) = viewModelScope.launch {
         if (deleteList) dao.deleteShopListName(id)
         dao.deleteShopListItemsByListId(id)
+    }
+
+    fun deleteLibraryItem(id: Int) = viewModelScope.launch {
+        dao.deleteLibraryItem(id)
     }
 
     private suspend fun isLibraryItemWExists(name: String): Boolean =
